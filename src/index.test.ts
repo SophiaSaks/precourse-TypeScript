@@ -1,7 +1,17 @@
 import 'mocha';
 import assert from 'assert';
 
-import { greet, isOld, countOdd } from './index';
+import { 
+    greet, 
+    isOld, 
+    countOdd, 
+    sumEven , 
+    getPersonStreetNo, 
+    Person, 
+    IPerson, 
+    getPersonNameString,
+    printThis,
+    } from './index';
 
 describe('ts tests', () => {
   it('get greeting', () => {
@@ -51,5 +61,58 @@ describe('ts tests', () => {
   
     // arrange
     assert.strictEqual(numberOfOdds, 3);
+  });
+
+  it('sum event numbers', () => {
+    // arrange
+    const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  
+    // act
+    const sum = sumEven(nums);
+  
+    // arrange
+    assert.strictEqual(sum, 30);
+  });
+
+  it('gets the street number for a person', () => {
+    //arrange
+    const p : Person = {
+        name: 'Sophia',
+        birthYear: 1995,
+        address : {
+            street: 'Exempelgatan',
+            streetNo: 37,
+            city: 'Stockholm'
+        }
+    }
+
+    //act
+    const streetNo = getPersonStreetNo(p);
+
+    // assert
+    assert.strictEqual(streetNo, 37);
+  });
+  it('prints an IPerson', () => {
+    //arrange
+    const p1: IPerson = {name: 'Sophia', birthYear: 1995};
+    const p2 = {name: 'David', birthYear: 1972, drummer: true};
+
+    //act
+    const p1Address = getPersonNameString(p1);
+    const p2Address = getPersonNameString(p2);
+
+    //assert
+    assert.strictEqual(p1Address, "Sophia, 1995");
+    assert.strictEqual(p2Address, "David, 1972");
+  })
+
+  it('uses union types to allow null', () => {
+    // act
+    const result1 = printThis(undefined);
+    const result2 = printThis(null);
+  
+    // assert
+    assert.strictEqual(result1, "no person supplied");
+    assert.strictEqual(result2, "no person supplied");
   });
 });
